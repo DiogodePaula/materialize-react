@@ -1,8 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import Button from '@material-ui/core/Button';
 
 import { Title } from './style';
 
+import * as loginActions from '../../store/login/action';
+
 export default () => {
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+
+  const dispatch = useDispatch();
+
+  function handleLogin() {
+    if (email !== '' && senha !== '') {
+      dispatch(
+        loginActions.login({
+          email,
+          senha,
+        })
+      );
+    } else {
+      alert('Favor, digitar, os dados');
+    }
+  }
+
+  function handleClean() {
+    setEmail('');
+    setSenha('');
+  }
+
   return (
     <div
       style={{
@@ -22,19 +49,31 @@ export default () => {
       </Title>
       <label>
         Email:
-        <input type="text" />
+        <input
+          value={email}
+          type="email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
       </label>
       <br />
       <br />
       <label>
         Senha:
-        <input type="email" />
+        <input
+          value={senha}
+          type="text"
+          onChange={(e) => setSenha(e.target.value)}
+        />
       </label>
       <br />
       <br />
-      <button type="button" onClick={false}>
+      <Button type="button" onClick={() => handleLogin()}>
         Login
-      </button>
+      </Button>
+      <Button color="red" type="button" onClick={() => handleClean()}>
+        {' '}
+        Limpar{' '}
+      </Button>
     </div>
   );
 };

@@ -2,6 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
+// import DefaulLayout from '../_layout/default';
+// import AuthLayout from '..';
+
 export default function RoutWrapper({
   component: Component,
   isPrivate,
